@@ -65,7 +65,8 @@
 			<div class="container mx-auto py-16 px-5">
 				<h2 class="text-4xl font-semibold">Cast</h2>
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
-				  @foreach($movie['credits']['cast'] as $cast)
+					@foreach($movie['credits']['cast'] as $cast)
+				    @if($loop->index < 5)
 					<div class="mt-8">
 						<a href="#">
 								<img src="{{'https://image.tmdb.org/t/p/w500/'.$cast['profile_path'] }}" alt="actor1" class="hover:opacity-75 transition ease-in-out duration-150">
@@ -78,8 +79,25 @@
 					
 						</div>
 					</div>
-					@endforech
-					
+					@endif
+					@endforeach
+				
+			</div>
+			</div>
+	</div>
+	<div class="movie-images">
+			<div class="container mx-auto py-16 px-5">
+				<h2 class="text-4xl font-semibold">Images</h2>
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
+					@foreach($movie['images']['backdrops'] as $image)
+				    @if($loop->index < 9)
+					<div class="mt-8">
+						<a href="#">
+								<img src="{{'https://image.tmdb.org/t/p/w500/'.$image['file_path'] }}" alt="image1" class="hover:opacity-75 transition ease-in-out duration-150">
+						</a>
+					</div>
+					@endif
+					@endforeach
 				
 			</div>
 			</div>
