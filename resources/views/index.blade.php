@@ -23,7 +23,7 @@
 					<!-- looping through the now playing movies -->
 					 @foreach($nowPlayingMovies as $movie)
 						<!--rendering through the movies in the components and passing parameters to them   -->
-						<x-movie-card :movie="$movie" :genres="$genres" />
+						<x-movie-card :movie="$movie"/>
 				
 					@endforeach 
 			</div>
