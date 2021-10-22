@@ -21,12 +21,11 @@
 			<h2 class="uppercase font-semibold text-lg text-yellow-400 tracking-wider">now playing</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
 					<!-- looping through the now playing movies -->
-					@foreach($nowPlayingMovies as $movie)
+					 @foreach($nowPlayingMovies as $movie)
 						<!--rendering through the movies in the components and passing parameters to them   -->
 						<x-movie-card :movie="$movie" :genres="$genres" />
 				
-					@endforeach
-					
+					@endforeach 
 			</div>
 		</div>
 	

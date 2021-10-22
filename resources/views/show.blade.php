@@ -36,25 +36,65 @@
 													<div>{{$crew['name']}}</div>
 													<text-sm class="text-gray-400">{{$crew['job']}}</text-sm>
 											    </div>
+												@else 
+													@break
 											@endif	
 										@endforeach
 								</div>
 							</div>
 						</div>
+				<div x-data="{isOpen: false}">
 						<!-- Check if the movie has results -->
 						@if(count($movie['videos']['results']) > 0)
 							<div class="mt-12">
-						 	<a href="http://youtube.com/watch?v={{$movie['videos']['results'][0]['key']}}" class="flex inline-flex items-center text-gray-900 bg-yellow-400 rounded font-semibold px-5 py-4 hover:bg-yellow-600 transition ease-in-out duration-150">
+						 	<button
+							 	@click="isOpen = true"
+							  href="http://youtube.com/watch?v=" class="flex inline-flex items-center text-gray-900 bg-yellow-400 rounded font-semibold px-5 py-4 hover:bg-yellow-600 transition ease-in-out duration-150">
 							 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>  
-		
-							 	<span>Play Trailer</span>
-							 </a>
+</svg>  					 	<span>Play Trailer</span>
+							 </button>
 						</div>
 						@endif
+
+						<div	style="background-color:rgba(0, 0, 0, .5);" 
+							x-show.transition.opacity="isOpen"
+						class="fixed top-0 left-0 w-full h-full flex items-center shadow-lg overflow-y-auto">
+							<div class="container mx-auto overflow-y-auto lg:px-32 rounded-lg">
+								<div class="bg-gray-900 rounded">
+									<div class="flex pr-4 pt-2 justify-end">
+										<button @click="isOpen=false" class="text-3xl leading-none hover:text-gray-300">
+												&times;
+										</button>
+									
+									</div>
+									<div class="modal-body px-8 py-8">
+										<div style="padding-top:56.25%"
+										 class="responsive-container overflow-hidden relative">
+											<iframe height="315" 
+											src="https://www.youtube.com/embed/{{$movie['videos']['results'][0]['key']}}" 
+											style="border:0;" 
+											allow="autoplay; encrypted-media"
+											 allowfullscreen 
+											 width="560"
+											  frameborder=""
+											  class="responsive-iframe top-0 left-0 absolute w-full h-full">
+											</iframe>
+										
+										</div>
+									
+									</div>
+								</div>
+							
+							</div>
+						
+						</div>
+			
+
+
 			</div>
+		
 		</div>
 	
 	</div>
@@ -85,21 +125,55 @@
 			</div>
 			</div>
 	</div>
-	<div class="movie-images">
+
+	<!-- Movie Images begins -->
+	<div class="movie-images" x-data="{isOpen : false, image: ''}" >
 			<div class="container mx-auto py-16 px-5">
 				<h2 class="text-4xl font-semibold">Images</h2>
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-16">
 					@foreach($movie['images']['backdrops'] as $image)
 				    @if($loop->index < 9)
 					<div class="mt-8">
-						<a href="#">
+						<a
+						 @click.prevent=
+						 "isOpen=true
+						  image='{{'https://image.tmdb.org/t/p/original/'.$image['file_path'] }}'
+						 "
+						 href="#">
 								<img src="{{'https://image.tmdb.org/t/p/w500/'.$image['file_path'] }}" alt="image1" class="hover:opacity-75 transition ease-in-out duration-150">
 						</a>
 					</div>
+					@else 
+					   @break
 					@endif
 					@endforeach
 				
 			</div>
+	<div style="background-color:rgba(0, 0, 0, .5);" 
+							x-show="isOpen"
+						class="fixed top-0 left-0 w-full h-full flex items-center shadow-lg overflow-y-auto">
+							<div class="container mx-auto overflow-y-auto lg:px-32 rounded-lg">
+								<div class="bg-gray-900 rounded">
+									<div class="flex pr-4 pt-2 justify-end">
+										<button 
+										@click="isOpen=false"
+										@keydown.escape.window="isOpen=false"
+										class="text-3xl leading-none hover:text-gray-300">
+												&times;
+										</button>
+									
+									</div>
+									<div class="modal-body px-8 py-8">
+										<img :src="image" alt="poster">
+									</div>
+								</div>
+							
+							</div>
+						
+						</div>
+			
+
+
 			</div>
 	</div>
 @endsection
