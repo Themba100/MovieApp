@@ -31,7 +31,7 @@
 					<a href="{{route('tv.index')}}" class="hover:text-gray-300 mt-3 md:mt-0">TV Shows</a>
 				</li>
 				<li class="md:ml-16">
-					<a href="#" class="hover:text-gray-300 mt-3 md:mt-0">Actors</a>
+					<a href="{{route('actors.index')}}" class="hover:text-gray-300 mt-3 md:mt-0">Actors</a>
 				</li>
 				</ul>
 				<div class="flex flex-col md:flex-row items-center">
@@ -46,5 +46,6 @@
 	
 	@yield('content')
 	<livewire:scripts />
+	@yield('scripts')
 </body>
 </html>
